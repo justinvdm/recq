@@ -2,6 +2,9 @@
   "name": "recq",
   "version": "0.0.0",
   "description": "Record requests to a json file",
+  "bin": {
+      "recq": "./recq.coffee"
+  },
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec --compilers coffee:coffee-script/register recq.test.coffee"
