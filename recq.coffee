@@ -12,9 +12,9 @@ cmd = (args) ->
     .option('-u, --url <url>', "The url to hit")
     .option('-f, --file <file>', "Where the file should be saved", './data.json')
     .option('-s, --save', "Whether the request and response should be saved", true)
-    .option('--nojson', "If this is not a json request")
     .option('-a, --auth <username>:<password>', "Basic auth")
     .option('-d, --data <data>', "Request body data")
+    .option('--nojson', "If this is not a json request")
     .parse(args)
 
 serialize = (recq, res) ->
