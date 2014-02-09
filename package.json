@@ -1,0 +1,19 @@
+{
+  "name": "recq",
+  "version": "0.0.0",
+  "description": "Record requests to a json file",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec --compilers coffee:coffee-script/register recq.test.coffee"
+  },
+  "author": "justinvdm",
+  "license": "MIT",
+  "devDependencies": {
+    "coffee-script": "~1.7.1",
+    "mocha": "~1.17.1"
+  },
+  "dependencies": {
+    "commander": "~2.1.0",
+    "superagent": "~0.16.0"
+  }
+}
