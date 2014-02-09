@@ -35,7 +35,7 @@ serialize.res = (res) ->
 save = (recq, res, data) ->
   d = serialize(recq, res)
   data.push(d)
-  fs.writeFileSync(recq.file, JSON.stringify(data))
+  fs.writeFileSync(recq.file, JSON.stringify(data, null, 2))
 
 parse = (recq) ->
   recq.json = not recq.nojson
