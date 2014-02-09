@@ -10,7 +10,10 @@
   "license": "MIT",
   "devDependencies": {
     "coffee-script": "~1.7.1",
-    "mocha": "~1.17.1"
+    "mocha": "~1.17.1",
+    "nock": "~0.27.2",
+    "base64": "~2.1.0",
+    "tmp": "0.0.23"
   },
   "dependencies": {
     "commander": "~2.1.0",
