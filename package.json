@@ -5,7 +5,7 @@
   "bin": {
       "recq": "./recq.coffee"
   },
-  "main": "index.js",
+  "main": "recq.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec --compilers coffee:coffee-script/register recq.test.coffee"
   },
