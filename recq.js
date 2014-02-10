@@ -14,7 +14,7 @@
 
   recq = require('commander');
 
-  recq.usage("[options] <url>").option('-m, --method <method>', "The http request method to use").option('-f, --file <file>', "The storage file to use").option('-k, --key <key>', "The key to use for the datum in the file", "if the file is a json object, not a json array").option('-d, --data <data>', "Request body data").option('-a, --auth <username>:<password>', "Basic auth").option('--nojson', "If this is not a json request");
+  recq.version('0.2.1').usage("[options] <url>").option('-m, --method <method>', "The http request method to use").option('-f, --file <file>', "The storage file to use").option('-k, --key <key>', "The key to use for the datum in the file", "if the file is a json object, not a json array").option('-d, --data <data>', "Request body data").option('-a, --auth <username>:<password>', "Basic auth").option('--nojson', "If this is not a json request");
 
   defaults = {
     method: 'GET',
