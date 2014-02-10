@@ -3,7 +3,7 @@
   "version": "0.1.1",
   "description": "Record requests to a json file",
   "bin": {
-      "recq": "./recq.coffee"
+    "recq": "./recq.coffee"
   },
   "main": "recq.js",
   "scripts": {
@@ -15,11 +15,11 @@
     "coffee-script": "~1.7.1",
     "mocha": "~1.17.1",
     "nock": "~0.27.2",
-    "base64": "~2.1.0",
     "tmp": "0.0.23"
   },
   "dependencies": {
     "commander": "~2.1.0",
-    "superagent": "~0.16.0"
+    "superagent": "~0.16.0",
+    "underscore": "~1.6.0"
   }
 }
