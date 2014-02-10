@@ -9,6 +9,8 @@ recq = require 'commander'
 
 
 recq
+  .version '0.2.0'
+
   .usage "[options] <url>"
 
   .option '-m, --method <method>',
