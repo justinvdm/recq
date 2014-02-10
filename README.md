@@ -29,17 +29,17 @@ $ recq -u http://foo.com -d {"bar":"baz"}
 
 ```sh
 $ npm install -g recq
-$ recq --help             
+$ recq --help
 
-  Usage: recq.coffee [options]
+  Usage: recq.coffee [options] <url>
 
   Options:
 
     -h, --help                        output usage information
     -m, --method <method>             The http request method to use
-    -u, --url <url>                   The url to hit
-    -f, --file <file>                 Where the file should be saved
-    -a, --auth <username>:<password>  Basic auth
+    -f, --file <file>                 The storage file to use
+    -k, --key <key>                   The key to use for the datum in the file
     -d, --data <data>                 Request body data
+    -a, --auth <username>:<password>  Basic auth
     --nojson                          If this is not a json request
 ```
