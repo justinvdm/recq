@@ -2,12 +2,12 @@
 Record requests to a json file. Useful for recording api requests (possibly for use as fixtures).
 
 ```sh
-$ recq -u http://foo.com -d {"bar":"baz"}
+$ recq -k foo -d '{"bar":"baz"}' http://foo.com 
 ```
 
 ```javascript
-[
-  {
+{
+  "foo": {
     "request": {
       "method": "GET",
       "url": "http://foo.com",
@@ -21,8 +21,8 @@ $ recq -u http://foo.com -d {"bar":"baz"}
         "lerp": "larp"
       }
     }
-  },
-]
+  }
+}
 ```
 
 ## Usage
