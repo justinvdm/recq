@@ -20,8 +20,7 @@ recq
     "The storage file to use"
 
   .option '-k, --key <key>',
-    "The key to use for the datum in the file"
-    "if the file is a json object, not a json array"
+    "The key to use for the datum in the file if the file is a json object"
 
   .option '-d, --data <data>',
     "Request body data"
