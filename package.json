@@ -7,7 +7,7 @@
   },
   "main": "recq.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter spec --compilers coffee:coffee-script/register recq.test.coffee"
+    "test": "mocha --reporter spec --compilers coffee:coffee-script/register recq.test.coffee"
   },
   "author": "justinvdm",
   "license": "MIT",
