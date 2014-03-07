@@ -2,7 +2,7 @@ fs = require 'fs'
 assert = require 'assert'
 nock = require 'nock'
 tmp = require 'tmp'
-recq = require './recq'
+recq = require './recq.coffee'
 
 describe "recq", ->
   filepath = null
