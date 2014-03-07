@@ -14,7 +14,7 @@
 
   recq = require('commander');
 
-  recq.version('0.2.2').usage("[options] <url>").option('-m, --method <method>', "The http request method to use").option('-f, --file <file>', "The storage file to use").option('-k, --key <key>', "The key to use for the datum in the file if the file is a json object").option('-d, --data <data>', "Request body data").option('-a, --auth <username>:<password>', "Basic auth").option('-t, --type', "The type of the request. May be any value allowed by superagent.");
+  recq.version('0.2.2').usage("[options] <url>").option('-m, --method <method>', "The http request method to use").option('-f, --file <file>', "The storage file to use").option('-k, --key <key>', "The key to use for the datum in the file if the file is a json object").option('-d, --data <data>', "Request body data").option('-a, --auth <username>:<password>', "Basic auth").option('-t, --type <type>', "The type of the request. May be any value allowed by superagent.");
 
   defaults = {
     method: 'GET',

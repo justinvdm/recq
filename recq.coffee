@@ -28,7 +28,7 @@ recq
   .option '-a, --auth <username>:<password>',
     "Basic auth"
 
-  .option '-t, --type',
+  .option '-t, --type <type>',
     "The type of the request. May be any value allowed by superagent."
 
 
