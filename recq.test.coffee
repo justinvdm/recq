@@ -32,7 +32,7 @@ describe "recq", ->
             "Basic Zm9vOmJhcg==")
           done()
 
-    it "should use the request body if given", (done) ->
+    it "should use the request data if given", (done) ->
       nock('http://foo.com')
         .get('/', {foo: 'bar'})
         .reply(200)
@@ -43,7 +43,7 @@ describe "recq", ->
         data: '{"foo":"bar"}'
         done: -> done()
 
-    it "should set the content type to json if relevant", (done) ->
+    it "should set the given content type", (done) ->
       nock('http://foo.com')
         .get('/', {foo: 'bar'})
         .reply(200)
@@ -52,23 +52,11 @@ describe "recq", ->
         file: filepath
         url: 'http://foo.com/'
         data: '{"foo":"bar"}'
+        type: 'text/plain'
         done: (opts) ->
           assert.equal(
             header(opts.res.req, 'content-type'),
-            'application/json')
-          done()
-
-    it "should not set the content type to json if not relevant", (done) ->
-      nock('http://foo.com')
-        .get('/')
-        .reply(200)
-
-      recq
-        file: filepath
-        url: 'http://foo.com/'
-        nojson: true,
-        done: (opts) ->
-          assert(typeof header(opts.res.req, 'content-type') is 'undefined')
+            'text/plain')
           done()
 
     it "should use the given request method", (done) ->
@@ -83,6 +71,74 @@ describe "recq", ->
         done: -> done()
 
   describe "the output", ->
+    it "should store the raw request data for non-json requests", (done) ->
+      nock('http://foo.com')
+        .get('/bar', 'lerp')
+        .reply(200)
+
+      check = ->
+        [data] = require(filepath)
+        assert 'data' not in data.request
+        assert.equal data.request.body, 'lerp'
+        done()
+
+      recq
+        file: filepath
+        url: 'http://foo.com/bar'
+        data: 'lerp'
+        type: 'text/plain'
+        done: -> check()
+
+    it "should store the decoded request data for json requests", (done) ->
+      nock('http://foo.com')
+        .get('/bar', {lerp: 'larp'})
+        .reply(200)
+
+      check = ->
+        [data] = require(filepath)
+        assert 'data' not in data.request
+        assert.deepEqual data.request.data, {lerp: 'larp'}
+        done()
+
+      recq
+        file: filepath
+        url: 'http://foo.com/bar'
+        data: '{"lerp":"larp"}'
+        done: -> check()
+
+    it "should store the raw response data for non-json requests", (done) ->
+      nock('http://foo.com')
+        .get('/bar')
+        .reply(200, 'lamb')
+
+      check = ->
+        [data] = require(filepath)
+        assert 'data' not in data.response
+        assert.equal data.response.body, 'lamb'
+        done()
+
+      recq
+        file: filepath
+        url: 'http://foo.com/bar'
+        type: 'text/plain'
+        done: -> check()
+
+    it "should store the decoded response data for json requests", (done) ->
+      nock('http://foo.com')
+        .get('/bar')
+        .reply(200, {lamb: 'sham'})
+
+      check = ->
+        [data] = require(filepath)
+        assert 'body' not in data.response
+        assert.deepEqual data.response.data, {lamb: 'sham'}
+        done()
+
+      recq
+        file: filepath
+        url: 'http://foo.com/bar'
+        done: -> check()
+
     it "should store the data to an array if no key is given", (done) ->
       nock('http://foo.com')
         .get('/bar', {spam: 'ham'})
@@ -113,18 +169,18 @@ describe "recq", ->
           request:
             method: 'GET'
             url: 'http://foo.com/bar'
-            body: {spam: 'ham'}
+            data: {spam: 'ham'}
           response:
             code: 200
-            body: {lamb: 'sham'}
+            data: {lamb: 'sham'}
         ,
           request:
             method: 'PUT'
             url: 'http://foo.com/baz'
-            body: {lerp: 'larp'}
+            data: {lerp: 'larp'}
           response:
             code: 201
-            body: {lorem: 'lark'}]
+            data: {lorem: 'lark'}]
         done()
 
       a()
@@ -162,18 +218,18 @@ describe "recq", ->
             request:
               method: 'GET'
               url: 'http://foo.com/bar'
-              body: {spam: 'ham'}
+              data: {spam: 'ham'}
             response:
               code: 200
-              body: {lamb: 'sham'}
+              data: {lamb: 'sham'}
           baz:
             request:
               method: 'PUT'
               url: 'http://foo.com/baz'
-              body: {lerp: 'larp'}
+              data: {lerp: 'larp'}
             response:
               code: 201
-              body: {lorem: 'lark'}
+              data: {lorem: 'lark'}
         done()
 
       a()
