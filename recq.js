@@ -14,11 +14,12 @@
 
   recq = require('commander');
 
-  recq.version('0.2.1').usage("[options] <url>").option('-m, --method <method>', "The http request method to use").option('-f, --file <file>', "The storage file to use").option('-k, --key <key>', "The key to use for the datum in the file if the file is a json object").option('-d, --data <data>', "Request body data").option('-a, --auth <username>:<password>', "Basic auth").option('--nojson', "If this is not a json request");
+  recq.version('0.2.2').usage("[options] <url>").option('-m, --method <method>', "The http request method to use").option('-f, --file <file>', "The storage file to use").option('-k, --key <key>', "The key to use for the datum in the file if the file is a json object").option('-d, --data <data>', "Request body data").option('-a, --auth <username>:<password>', "Basic auth").option('--type', "The type of the request. May be any value allowed by superagent.");
 
   defaults = {
     method: 'GET',
-    file: './data.json'
+    file: './data.json',
+    type: 'json'
   };
 
   run = function(opts) {
@@ -28,12 +29,11 @@
     if (opts.username != null) {
       req.auth(opts.username, opts.password);
     }
-    if (req.json) {
-      req.type('application/json');
-    }
+    req.type(opts.type);
     if (opts.data) {
       req.send(opts.data);
     }
+    req.buffer();
     return req.end(function(res) {
       opts.res = res;
       log(opts);
@@ -47,10 +47,12 @@
   parse = function(opts) {
     var _ref;
     opts = _({}).extend(defaults, opts);
-    opts.json = !opts.nojson;
+    if (opts.type === 'application/json') {
+      opts.type = 'json';
+    }
     opts.file = path.resolve(opts.file);
     opts.method = opts.method.toUpperCase();
-    if (opts.data && opts.json) {
+    if (opts.type === 'json' && opts.data) {
       opts.data = JSON.parse(opts.data);
     }
     if (opts.auth) {
@@ -102,7 +104,9 @@
       method: opts.method,
       url: opts.url
     };
-    if (opts.data) {
+    if (opts.type === 'json') {
+      d.data = opts.data;
+    } else {
       d.body = opts.data;
     }
     return d;
@@ -113,8 +117,10 @@
     d = {
       code: opts.res.statusCode
     };
-    if (opts.res.body) {
-      d.body = opts.res.body;
+    if (opts.type === 'json') {
+      d.data = opts.res.body;
+    } else {
+      d.body = opts.res.text;
     }
     return d;
   };
