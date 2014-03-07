@@ -28,13 +28,14 @@ recq
   .option '-a, --auth <username>:<password>',
     "Basic auth"
 
-  .option '--nojson',
-    "If this is not a json request"
+  .option '--type',
+    "The type of the request. May be any value allowed by superagent."
 
 
 defaults =
   method: 'GET'
   file: './data.json'
+  type: 'json'
 
 
 run = (opts) ->
@@ -42,8 +43,9 @@ run = (opts) ->
 
   req = request(opts.method, opts.url)
   req.auth(opts.username, opts.password) if opts.username?
-  req.type('application/json') if req.json
+  req.type(opts.type)
   req.send(opts.data) if opts.data
+  req.buffer()
 
   req.end (res) ->
     opts.res = res
@@ -54,11 +56,11 @@ run = (opts) ->
 
 parse = (opts) ->
   opts = _({}).extend(defaults, opts)
+  opts.type = 'json' if opts.type == 'application/json'
 
-  opts.json = not opts.nojson
   opts.file = path.resolve(opts.file)
   opts.method = opts.method.toUpperCase()
-  opts.data = JSON.parse(opts.data) if opts.data and opts.json
+  opts.data = JSON.parse(opts.data) if opts.type == 'json' and opts.data
   [opts.username, opts.password] = opts.auth.split(':') if opts.auth
   opts.store = read(opts)
 
@@ -103,13 +105,22 @@ serialize.req = (opts) ->
     method: opts.method
     url: opts.url
 
-  d.body = opts.data if opts.data
+  if opts.type == 'json'
+    d.data = opts.data
+  else
+    d.body = opts.data
+
   return d
 
 
 serialize.res = (opts) ->
   d = code: opts.res.statusCode
-  d.body = opts.res.body if opts.res.body
+
+  if opts.type == 'json'
+    d.data = opts.res.body
+  else
+    d.body = opts.res.text
+
   return d
 
 
