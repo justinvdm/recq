@@ -28,8 +28,7 @@ $ recq -k foo -d '{"bar":"baz"}' http://foo.com
 ## Usage
 
 ```sh
-$ npm install -g recq
-$ recq --help                                                                        
+$ recq --help
 
   Usage: recq.coffee [options] <url>
 
@@ -42,5 +41,5 @@ $ recq --help
     -k, --key <key>                   The key to use for the datum in the file if the file is a json object
     -d, --data <data>                 Request body data
     -a, --auth <username>:<password>  Basic auth
-    --nojson                          If this is not a json request
+    -t, --type <type>                 The type of the request. May be any value allowed by superagent.
 ```
