@@ -11,13 +11,13 @@ $ recq -k foo -d '{"bar":"baz"}' http://foo.com
     "request": {
       "method": "GET",
       "url": "http://foo.com",
-      "body": {
+      "data": {
         "bar": "baz"
       }
     },
     "response": {
       "code": 200,
-      "body": {
+      "data": {
         "lerp": "larp"
       }
     }
