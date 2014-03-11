@@ -1,6 +1,6 @@
 {
   "name": "recq",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Record requests to a json file",
   "bin": {
     "recq": "./recq.coffee"
