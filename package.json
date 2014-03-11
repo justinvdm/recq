@@ -12,7 +12,6 @@
   "author": "justinvdm",
   "license": "MIT",
   "devDependencies": {
-    "coffee-script": "~1.7.1",
     "mocha": "~1.17.1",
     "nock": "~0.27.2",
     "tmp": "0.0.23"
@@ -20,6 +19,7 @@
   "dependencies": {
     "commander": "~2.1.0",
     "superagent": "~0.16.0",
-    "underscore": "~1.6.0"
+    "underscore": "~1.6.0",
+    "coffee-script": "~1.7.1"
   }
 }
