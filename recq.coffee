@@ -5,11 +5,13 @@ nurl = require 'url'
 path = require 'path'
 _ = require 'underscore'
 request = require 'superagent'
+
+pkg = require './package'
 recq = require 'commander'
 
 
 recq
-  .version '0.2.2'
+  .version pkg.version
 
   .usage "[options] <url>"
 
