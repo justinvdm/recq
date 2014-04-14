@@ -70,6 +70,17 @@ describe "recq", ->
         method: 'head'
         done: -> done()
 
+    it "should work with bad querystrings", (done) ->
+      nock('http://foo.com/')
+        .head('/?bar')
+        .reply(200)
+
+      recq
+        file: filepath
+        url: 'http://foo.com/?bar'
+        method: 'head'
+        done: -> done()
+
   describe "the output", ->
     it "should store the raw request data for non-json requests", (done) ->
       nock('http://foo.com')
