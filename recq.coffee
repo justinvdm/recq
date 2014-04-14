@@ -41,8 +41,12 @@ defaults =
 run = (opts) ->
   opts = parse(opts)
 
-  req = request(opts.method, opts.url)
+  urlParts = nurl.parse(opts.url)
+  url = nurl.format(_.omit(urlParts, 'query', 'search'))
+
+  req = request(opts.method, url)
   req.auth(opts.username, opts.password) if opts.username?
+  req.query(urlParts.query) if urlParts.query?
   req.type(opts.type)
   req.send(opts.data) if opts.data
   req.buffer()
